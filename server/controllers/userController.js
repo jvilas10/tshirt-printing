@@ -1,42 +1,76 @@
-const userModel = require('../models/userModel');
+// controllers/userController.js
+const connection = require('../config/db');
 
+// Get all users
 const getUsers = (req, res) => {
-  const users = userModel.getAllUsers();
-  res.status(200).json(users);
+  connection.query('SELECT * FROM users', (err, results) => {
+    if (err) {
+      return res.status(500).json({ message: 'Database error' });
+    }
+    res.status(200).json(results);
+  });
 };
 
+// Get a user by ID
 const getUser = (req, res) => {
-  const user = userModel.getUserById(parseInt(req.params.id));
-  if (!user) {
-    return res.status(404).json({ message: 'User not found' });
-  }
-  res.status(200).json(user);
+  const userId = req.params.id;
+  connection.query('SELECT * FROM users WHERE id = ?', [userId], (err, results) => {
+    if (err) {
+      return res.status(500).json({ message: 'Database error' });
+    }
+    if (results.length === 0) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.status(200).json(results[0]);
+  });
 };
 
+// Create a new user
 const createUser = (req, res) => {
-  const { name } = req.body;
-  if (!name) {
-    return res.status(400).json({ message: 'Name is required' });
-  }
-  const newUser = userModel.createUser(name);
-  res.status(201).json(newUser);
+  const { name, email } = req.body;
+  connection.query(
+    'INSERT INTO users (name, email) VALUES (?, ?)',
+    [name, email],
+    (err, results) => {
+      if (err) {
+        return res.status(500).json({ message: 'Database error' });
+      }
+      res.status(201).json({ id: results.insertId, name, email });
+    }
+  );
 };
 
+// Update a user by ID
 const updateUser = (req, res) => {
-  const { name } = req.body;
-  const user = userModel.updateUser(parseInt(req.params.id), name);
-  if (!user) {
-    return res.status(404).json({ message: 'User not found' });
-  }
-  res.status(200).json(user);
+  const { name, email } = req.body;
+  const userId = req.params.id;
+  connection.query(
+    'UPDATE users SET name = ?, email = ? WHERE id = ?',
+    [name, email, userId],
+    (err, results) => {
+      if (err) {
+        return res.status(500).json({ message: 'Database error' });
+      }
+      if (results.affectedRows === 0) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+      res.status(200).json({ id: userId, name, email });
+    }
+  );
 };
 
+// Delete a user by ID
 const deleteUser = (req, res) => {
-  const user = userModel.deleteUser(parseInt(req.params.id));
-  if (!user) {
-    return res.status(404).json({ message: 'User not found' });
-  }
-  res.status(204).send();
+  const userId = req.params.id;
+  connection.query('DELETE FROM users WHERE id = ?', [userId], (err, results) => {
+    if (err) {
+      return res.status(500).json({ message: 'Database error' });
+    }
+    if (results.affectedRows === 0) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.status(204).send();
+  });
 };
 
 module.exports = {

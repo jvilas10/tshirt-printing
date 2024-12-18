@@ -1,8 +1,9 @@
+// routes/userRoutes.js
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController');
 
-// Define routes and link to controllers
+// Define routes and link them to the controllers
 router.get('/', userController.getUsers);
 router.get('/:id', userController.getUser);
 router.post('/', userController.createUser);
