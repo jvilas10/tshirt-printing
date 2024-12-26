@@ -70,7 +70,6 @@ const UploadProduct = ({
     
     const response = await fetch(SummaryApi.uploadProduct.url,{
       method : SummaryApi.uploadProduct.method,
-      credentials : 'include',
       headers : {
         "content-type" : "application/json"
       },

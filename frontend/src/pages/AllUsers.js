@@ -12,13 +12,13 @@ const AllUsers = () => {
         email : "",
         name : "",
         role : "",
-        _id  : ""
+        id  : ""
     })
 
     const fetchAllUsers = async() =>{
         const fetchData = await fetch(SummaryApi.allUser.url,{
             method : SummaryApi.allUser.method,
-            credentials : 'include'
+           
         })
 
         const dataResponse = await fetchData.json()
@@ -85,7 +85,7 @@ const AllUsers = () => {
                     name={updateUserDetails.name}
                     email={updateUserDetails.email}
                     role={updateUserDetails.role}
-                    userId={updateUserDetails._id}
+                    userId={updateUserDetails.id}
                     callFunc={fetchAllUsers}
                 />
             )      

@@ -16,13 +16,13 @@ const AdminEditProduct = ({
 
   const [data,setData] = useState({
     ...productData,
-    productName : productData?.productName,
-    brandName : productData?.brandName,
+    productName : productData?.productname,
+    brandName : productData?.brandname,
     category : productData?.category,
     productImage : productData?.productImage || [],
     description : productData?.description,
     price : productData?.price,
-    sellingPrice : productData?.sellingPrice
+    sellingPrice : productData?.sellingprice
   })
   const [openFullScreenImage,setOpenFullScreenImage] = useState(false)
   const [fullScreenImage,setFullScreenImage] = useState("")

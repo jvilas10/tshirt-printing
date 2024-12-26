@@ -18,7 +18,7 @@ const SummaryApi = {
         method : 'get'
     },
     allUser : {
-        url : `${backendDomin}/api/all-user`,
+        url : `${backendDomin}/api/users`,
         method : 'get'
     },
     updateUser : {
@@ -26,11 +26,11 @@ const SummaryApi = {
         method : "post"
     },
     uploadProduct : {
-        url : `${backendDomin}/api/upload-product`,
+        url : `${backendDomin}/api/products`,
         method : 'post'
     },
     allProduct : {
-        url : `${backendDomin}/api/get-product`,
+        url : `${backendDomin}/api/products`,
         method : 'get'
     },
     updateProduct : {
@@ -38,7 +38,7 @@ const SummaryApi = {
         method  : 'post'
     },
     categoryProduct : {
-        url : `${backendDomin}/api/get-categoryProduct`,
+        url : `${backendDomin}/api/products`,
         method : 'get'
     },
     categoryWiseProduct : {
