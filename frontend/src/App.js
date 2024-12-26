@@ -12,7 +12,6 @@ function App() {
   const dispatch = useDispatch()
   const fetchUserDetails = async()=>{
     const user = JSON.parse(localStorage.getItem('user'));
-    console.log(user);
     const dataResponse = await fetch(`${SummaryApi.current_user.url}/${user}`,{
       method : SummaryApi.current_user.method,
     })

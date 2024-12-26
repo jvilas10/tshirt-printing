@@ -11,10 +11,10 @@ import Context from '../context';
 
 const ProductDetails = () => {
   const [data,setData] = useState({
-    productName : "",
-    brandName : "",
+    productname : "",
+    brandname : "",
     category : "",
-    productImage : [],
+    productimage : [],
     description : "",
     price : "",
     sellingPrice : ""
@@ -49,7 +49,7 @@ const ProductDetails = () => {
     const dataReponse = await response.json()
 
     setData(dataReponse?.data)
-    setActiveImage(dataReponse?.data?.productImage[0])
+    setActiveImage(dataReponse?.data?.productimage)
 
   }
 
@@ -186,8 +186,8 @@ const ProductDetails = () => {
             ) : 
             (
               <div className='flex flex-col gap-1'>
-                <p className='bg-red-200 text-red-600 px-2 rounded-full inline-block w-fit'>{data?.brandName}</p>
-                <h2 className='text-2xl lg:text-4xl font-medium'>{data?.productName}</h2>
+                <p className='bg-red-200 text-red-600 px-2 rounded-full inline-block w-fit'>{data?.brandname}</p>
+                <h2 className='text-2xl lg:text-4xl font-medium'>{data?.productname}</h2>
                 <p className='capitalize text-slate-400'>{data?.category}</p>
 
                 <div className='text-red-600 flex items-center gap-1'>
@@ -199,7 +199,7 @@ const ProductDetails = () => {
                 </div>
 
                 <div className='flex items-center gap-2 text-2xl lg:text-3xl font-medium my-1'>
-                  <p className='text-red-600'>{displayINRCurrency(data.sellingPrice)}</p>
+                  <p className='text-red-600'>{displayINRCurrency(data.sellingprice)}</p>
                   <p className='text-slate-400 line-through'>{displayINRCurrency(data.price)}</p>
                 </div>
 
