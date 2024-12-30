@@ -1,22 +1,25 @@
 import SummaryApi from "../common"
 import { toast } from 'react-toastify'
 
-const addToCart = async(e,id) =>{
+const addToCart = async(e,id,userId) =>{
     e?.stopPropagation()
     e?.preventDefault()
 
     const response = await fetch(SummaryApi.addToCartProduct.url,{
         method : SummaryApi.addToCartProduct.method,
-        credentials : 'include',
+    
         headers : {
             "content-type" : 'application/json'
         },
         body : JSON.stringify(
-            { productId : id }
+            {
+                productId : id,
+                quantity : 1,
+                userId : userId
+            }
         )
     })
-
-    const responseData = await response.json()
+   const responseData = await response.json()
 
     if(responseData.success){
         toast.success(responseData.message)

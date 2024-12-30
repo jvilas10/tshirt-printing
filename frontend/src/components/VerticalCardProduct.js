@@ -14,11 +14,12 @@ const VerticalCardProduct = ({category, heading}) => {
     const [scroll,setScroll] = useState(0)
     const scrollElement = useRef()
 
-    const { fetchUserAddToCart } = useContext(Context)
+    const { userId,fetchUserAddToCart } = useContext(Context)
 
     const handleAddToCart = async(e,id)=>{
-       await addToCart(e,id)
-       fetchUserAddToCart()
+       console.log("---->", userId) 
+       await addToCart(e,id,userId)
+      // fetchUserAddToCart()
     }
 
     const fetchData = async() =>{
@@ -74,7 +75,7 @@ const VerticalCardProduct = ({category, heading}) => {
                         )
                     })
                 ) : (
-                    data.map((product,index)=>{
+                    data?.map((product,index)=>{
                         return(
                             <Link to={"product/"+product?.id} className='w-full min-w-[280px]  md:min-w-[320px] max-w-[280px] md:max-w-[320px]  bg-white rounded-sm shadow '>
                                 <div className='bg-slate-200 h-48 p-4 min-w-[280px] md:min-w-[145px] flex justify-center items-center'>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,useContext } from 'react'
 import Logo from './Logo'
 import { GrSearch } from "react-icons/gr";
 import { FaRegUserCircle } from "react-icons/fa";
@@ -7,14 +7,16 @@ import { Link } from 'react-router-dom';
 import { useSelector,useDispatch } from 'react-redux'
 import SummaryApi from '../common';
 import {useNavigate } from 'react-router-dom'
+import Context from '../context';
 
 import { setUserDetails } from '../store/userSlice';
 import ROLE from '../common/role';
 const Header = () => {
 const user=useSelector(state=>state?.user?.user)
-console.log(user);
 const dispatch = useDispatch()
 const [menuDisplay,setMenuDisplay] = useState(false)
+const context = useContext(Context)
+console.log("zxc",user,context);
 const navigate=useNavigate()
 const handleLogout=()=>{
   localStorage.setItem('user', null);
@@ -69,12 +71,17 @@ const handleLogout=()=>{
                 
                </div>   
                    
-                <div className='text-2xl cursor-pointer relative'>
-                  <span><FaShoppingCart /></span>
-                   <div className="bg-red-600 text-white w-5 h-5 rounded-full flex items-center justify-center absolute -top-3 -right-3">
-                    <p className='text-xs'>0</p>
-                    </div>
-                </div>
+               {
+                     user?.id && (
+                      <Link to={"/cart"} className='text-2xl relative'>
+                          <span><FaShoppingCart/></span>
+      
+                          <div className='bg-red-600 text-white w-5 h-5 rounded-full p-1 flex items-center justify-center absolute -top-2 -right-3'>
+                              <p className='text-sm'>{context?.cartProductCount}</p>
+                          </div>
+                      </Link>
+                      )
+                  }
                 <div>                  
                     {
                         user?.id?(

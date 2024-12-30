@@ -3,6 +3,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 const userRoutes = require('./routes/userRoutes');
 const productRouters=require('./routes/productRoutes')
+const cardRouters=require('./routes/cardRouter')
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ app.use((req, res, next) => {
   
 app.use('/api/users', userRoutes);
 app.use('/api/products', productRouters)
+app.use('/api/addToCard', cardRouters)
 
 // Start the server
 const port = process.env.PORT || 8080;
